@@ -36,7 +36,7 @@ Metawear.discoverByAddress('c7:6e:8e:86:15:55',function(device) {
         sensorFusion.start();
 
         sensorFusion.onChange(function(data) {
-            console.log(data);
+            //console.log(data);
             io.emit('quaternion',data);
         });
     });
