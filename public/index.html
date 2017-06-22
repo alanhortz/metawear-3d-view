@@ -11,7 +11,7 @@
     <script src="js/three.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io('http://localhost:8000');
+      var socket = io();
       var scene = new THREE.Scene();
       var width = window.innerWidth;
       var height = window.innerHeight;
@@ -36,9 +36,6 @@
 
 
       var render = function (orientation) {
-        //requestAnimationFrame( render );
-
-
 
         cube.quaternion.x = -orientation.x;
         cube.quaternion.y = -orientation.y;
@@ -50,12 +47,10 @@
         renderer.render(scene, camera);
       };
 
-      
-
-	
-	socket.on('quaternion', function (data) {
-		render(data);
-	});
+    
+    	socket.on('quaternion', function (data) {
+    		render(data);
+    	});
 
     </script>
   </body>

@@ -5,6 +5,7 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const Metawear = require('node-metawear');
+
 app.use(express.static('public'));
 io.on('connection', function() {
 	console.log('user connected');
@@ -33,6 +34,7 @@ Metawear.discoverByAddress('c7:6e:8e:86:15:55',function(device) {
         sensorFusion.config.setMode(MODE_NDOF);
         sensorFusion.subscribe(QUATERION);
         sensorFusion.enableData(DATA_QUATERION);
+        sensorFusion.writeConfig();
         sensorFusion.start();
 
         sensorFusion.onChange(function(data) {
