@@ -11,13 +11,18 @@
     <script src="js/three.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io('http://localhost:8000');
+      var socket = io();
       var scene = new THREE.Scene();
       var width = window.innerWidth;
       var height = window.innerHeight;
-      
+      var xMultiplicator = 1;
+      var yMultiplicator = 1;
+      var zMultiplicator = 1;
+      var wMultiplicator = -1;      
+
       var camera = new THREE.PerspectiveCamera( 75, width / height, 2, 1000 );
       camera.position.set(0, 0, 0);
+      
       camera.up.set(0, 1, 0);
       camera.lookAt(new THREE.Vector3(0, 0, -1));
       
@@ -33,17 +38,17 @@
       
 
       camera.position.z = 4;
-
+      
 
       var render = function (orientation) {
         //requestAnimationFrame( render );
 
 
 
-        cube.quaternion.x = -orientation.x;
-        cube.quaternion.y = -orientation.y;
-        cube.quaternion.z = orientation.z;
-        cube.quaternion.w = -(orientation.w);
+        cube.quaternion.x = xMultiplicator * orientation.x;
+        cube.quaternion.y = yMultiplicator * orientation.y;
+        cube.quaternion.z = zMultiplicator * orientation.z;
+        cube.quaternion.w = wMultiplicator * orientation.w;
 
         cube.quaternion.inverse();
 
