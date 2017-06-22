@@ -10,8 +10,8 @@ app.use(express.static('public'));
 io.on('connection', function() {
 	console.log('user connected');
 });
-server.listen(8000, function() {
-	console.log('server listening on port 8000');
+server.listen(8080, function() {
+	console.log('server listening on port 8080');
 });
 
 
