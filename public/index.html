@@ -16,20 +16,24 @@
       scene.background = new THREE.Color(0x007BC4);
       var width = window.innerWidth;
       var height = window.innerHeight;
-      var xMultiplicator = 1;
-      var yMultiplicator = 1;
-      var zMultiplicator = 1;
-      var wMultiplicator = -1;      
+    
 
       var camera = new THREE.PerspectiveCamera( 50, width / height, 0.10, 10000);
-      //PerspectiveCamera( fov, aspect, near, far )
-      camera.position.set(3.12, 1.56, 3.12);
-      camera.rotation.set(-26.57, 41.81, 18.43);
+      
+      // camera.position.set(3.12, 1.56, 3.12);
+      // camera.rotation.set(-26.57, 41.81, 18.43);
+      
+      camera.position.set(0,0,4);
+
       camera.lookAt(new THREE.Vector3(0, 0, 0));
 
       var directionalLight = new THREE.DirectionalLight( 0xffffff, 2.5 );
 
-      //camera.up.set(0, 1, 0);
+
+      camera.up.set(0, 0, 0);
+      camera.rotation.z = -0.43;
+
+      directionalLight.position.z = 2;
       
       
 
@@ -37,7 +41,7 @@
       renderer.setSize( window.innerWidth, window.innerHeight );
       document.body.appendChild( renderer.domElement );
 
-      var geometry = new THREE.BoxGeometry( 2, 0.25, 1 );
+      var geometry = new THREE.BoxGeometry( 2, 1, 0.25 );
       var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
       var cube = new THREE.Mesh( geometry, material );
       scene.add( cube );
@@ -49,12 +53,13 @@
 
       var render = function (orientation) {
 
-        cube.quaternion.x = xMultiplicator * orientation.x;
-        cube.quaternion.y = yMultiplicator * orientation.y;
-        cube.quaternion.z = zMultiplicator * orientation.z;
-        cube.quaternion.w = wMultiplicator * orientation.w;
+        cube.quaternion.x =  orientation.x;
+        cube.quaternion.y =  orientation.y;
+        cube.quaternion.z =  orientation.z;
+        cube.quaternion.w =  orientation.w;
 
-        cube.quaternion.inverse();
+        //cube.quaternion.inverse();
+        cube.quaternion.normalize();
 
         renderer.render(scene, camera);
       };
